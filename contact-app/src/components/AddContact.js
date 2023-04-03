@@ -7,12 +7,25 @@ class AddContact extends React.Component {
     email: "",
   };
 
+  isValidEmail = (email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
   add = (e) => {
     e.preventDefault();
+
     if (this.state.name === "" || this.state.email === "") {
       alert("All the fields are mandatory!");
       return;
     }
+
+    if (this.isValidEmail(this.state.email)) {
+      alert("The contact is successfully added.");
+    } else {
+      alert("Email is invalid");
+      return;
+    }
+
     this.props.addContactHandler(this.state);
     this.setState({ name: "", email: "" });
     this.props.history.push("/");

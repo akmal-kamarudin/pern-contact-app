@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import api from "../api/contacts";
+import api from "./api/contacts";
 import "./App.css";
-import Header from "./Header";
-import AddContact from "./AddContact";
-import ContactList from "./ContactList";
-import ContactDetail from "./ContactDetail";
-import ContactDelete from "./ContactDelete";
-import EditContact from "./EditContact";
+import Header from "./components/Header";
+import AddContact from "./components/AddContact";
+import ContactList from "./components/ContactList";
+import ContactDetail from "./components/ContactDetail";
+import ContactDelete from "./components/ContactDelete";
+import EditContact from "./components/EditContact";
 
 function App() {
   // const LOCAL_STORAGE_KEY = "contacts";
