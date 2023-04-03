@@ -12,12 +12,25 @@ class EditContact extends React.Component {
     };
   }
 
+  isValidEmail = (email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
   update = (e) => {
     e.preventDefault();
+
     if (this.state.name === "" || this.state.email === "") {
       alert("All the fields are mandatory!");
       return;
     }
+
+    if (this.isValidEmail(this.state.email)) {
+      alert("The contact is successfully updated.");
+    } else {
+      alert("Email is invalid");
+      return;
+    }
+
     this.props.updateContactHandler(this.state);
     this.setState({ name: "", email: "" });
     this.props.history.push("/");

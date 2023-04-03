@@ -11,10 +11,8 @@ import ContactDelete from "./components/ContactDelete";
 import EditContact from "./components/EditContact";
 
 function App() {
-  // const LOCAL_STORAGE_KEY = "contacts";
   const [contacts, setContacts] = useState([]);
 
-  // RetriveContacts
   const retrieveContacts = async () => {
     const response = await api.get("/contacts");
     return response.data;
@@ -59,10 +57,6 @@ function App() {
 
     getAllContacts();
   }, []);
-
-  useEffect(() => {
-    // localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
 
   return (
     <>
