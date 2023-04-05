@@ -19,20 +19,18 @@ function App() {
   };
 
   const addContactHandler = async (contact) => {
-    console.log(contact);
     const request = {
       id: uuid(),
       ...contact,
     };
 
     const response = await api.post("/contacts", request);
-    console.log(response);
     setContacts([...contacts, response.data]);
   };
 
   const updateContactHandler = async (contact) => {
     const response = await api.put(`/contacts/${contact.id}`, contact);
-    const { id, name, email } = response.data;
+    const { id } = response.data;
     setContacts(
       contacts.map((contact) => {
         return contact.id === id ? { ...response.data } : contact;

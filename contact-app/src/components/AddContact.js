@@ -50,7 +50,12 @@ class AddContact extends React.Component {
               name="name"
               placeholder="Name"
               value={this.state.name}
-              onChange={(e) => this.setState({ name: e.target.value })}
+              onChange={(e) =>
+                this.setState((contact) => ({
+                  ...contact,
+                  name: e.target.value,
+                }))
+              }
             />
           </div>
           <div className="field">
@@ -60,7 +65,12 @@ class AddContact extends React.Component {
               name="email"
               placeholder="Email"
               value={this.state.email}
-              onChange={(e) => this.setState({ email: e.target.value })}
+              onChange={(e) =>
+                this.setState((contact) => ({
+                  ...contact,
+                  email: e.target.value,
+                }))
+              }
             />
           </div>
           <button className="ui button blue">ADD</button>
