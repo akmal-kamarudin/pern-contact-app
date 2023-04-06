@@ -12,6 +12,8 @@ import EditContact from "./components/EditContact";
 
 function App() {
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const retrieveContacts = async () => {
     const response = await api.get("/contacts");
@@ -47,6 +49,21 @@ function App() {
     setContacts(newContactList);
   };
 
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== "") {
+      const newContactList = contacts.filter((contact) => {
+        return Object.values(contact)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+    } else {
+      setSearchResults(contacts);
+    }
+  };
+
   useEffect(() => {
     const getAllContacts = async () => {
       const allContacts = await retrieveContacts();
@@ -65,7 +82,14 @@ function App() {
             <Route
               path="/"
               exact
-              render={(props) => <ContactList {...props} contacts={contacts} />}
+              render={(props) => (
+                <ContactList
+                  {...props}
+                  contacts={searchTerm.length < 1 ? contacts : searchResults}
+                  term={searchTerm}
+                  searchKeyword={searchHandler}
+                />
+              )}
             />
             <Route
               path="/add"
