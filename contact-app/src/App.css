@@ -41,3 +41,13 @@
   height: 60vh;
   width: 100%;
 }
+
+#search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-bar {
+  width: 46vw;
+}
