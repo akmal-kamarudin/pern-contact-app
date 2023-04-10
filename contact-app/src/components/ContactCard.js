@@ -14,22 +14,18 @@ const ContactCard = (props) => {
         style={{ marginBlock: "6px" }}
       />
       <div className="content" style={{ marginBlock: "6px" }}>
-        <Link
-          to={{ pathname: `/contact/${id}`, state: { contact: props.contact } }}
-        >
+        <Link to={`/contact/${id}`} state={{ contact: props.contact }}>
           <div className="header">{name}</div>
           <div>{email}</div>
         </Link>
       </div>
-      <Link
-        to={{ pathname: `/delete/${id}`, state: { contact: props.contact } }}
-      >
+      <Link to={`/delete/${id}`} state={{ contact: props.contact }}>
         <i
           className="large right floated trash alternate outline icon"
           style={{ color: "red", marginTop: "12px", cursor: "pointer" }}
         ></i>
       </Link>
-      <Link to={{ pathname: `/edit`, state: { contact: props.contact } }}>
+      <Link to={`edit/${id}`} state={{ contact: props.contact }}>
         <i
           className="large right floated edit alternate outline icon"
           style={{ color: "teal", marginTop: "12px", cursor: "pointer" }}
