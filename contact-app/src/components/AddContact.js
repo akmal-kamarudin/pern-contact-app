@@ -3,10 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContactsCrud } from "../context/ContactsCrudContext";
 
 const AddContact = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [contacts, setContacts] = useState({
+    name: "",
+    email: "",
+  });
   const { addContactHandler } = useContactsCrud();
   const navigate = useNavigate();
+
+  const { name, email } = contacts;
 
   const isValidEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -28,8 +32,7 @@ const AddContact = () => {
     }
 
     addContactHandler({ name, email });
-    setName("");
-    setEmail("");
+    setContacts({ name: "", email: "" });
     navigate("/");
   };
 
@@ -38,9 +41,7 @@ const AddContact = () => {
       <h2>
         Add Contact
         <Link to="/">
-          <button className="ui button orange right floated">
-            All Contact List
-          </button>
+          <button className="ui button orange right floated">All Contact List</button>
         </Link>
       </h2>
       <form className="ui form" onSubmit={add}>
@@ -51,7 +52,12 @@ const AddContact = () => {
             name="name"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) =>
+              setContacts((contact) => ({
+                ...contact,
+                name: e.target.value,
+              }))
+            }
           />
         </div>
         <div className="field">
@@ -61,7 +67,12 @@ const AddContact = () => {
             name="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setContacts((contact) => ({
+                ...contact,
+                email: e.target.value,
+              }))
+            }
           />
         </div>
         <button className="ui button blue">ADD</button>

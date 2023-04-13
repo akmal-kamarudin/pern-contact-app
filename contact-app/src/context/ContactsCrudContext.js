@@ -47,7 +47,8 @@ export function ContacstCrudContextProvider({ children }) {
     setSearchTerm(searchTerm);
     if (searchTerm !== "") {
       const newContactList = contacts.filter((contact) => {
-        return Object.values(contact)
+        const { id, ...rest } = contact;
+        return Object.values(rest)
           .join(" ")
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
@@ -70,9 +71,7 @@ export function ContacstCrudContextProvider({ children }) {
   };
 
   return (
-    <contactsCrudContext.Provider value={value}>
-      {children}
-    </contactsCrudContext.Provider>
+    <contactsCrudContext.Provider value={value}>{children}</contactsCrudContext.Provider>
   );
 }
 

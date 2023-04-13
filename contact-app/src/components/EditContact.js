@@ -7,8 +7,12 @@ const EditContact = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id, name, email } = location.state.contact;
-  const [newName, setNewName] = useState(name);
-  const [newEmail, setNewEmail] = useState(email);
+  const [newContacts, setNewContacts] = useState({
+    newName: name,
+    newEmail: email,
+  });
+
+  const { newName, newEmail } = newContacts;
 
   const isValidEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -30,8 +34,7 @@ const EditContact = () => {
     }
 
     updateContactHandler({ id, name: newName, email: newEmail });
-    setNewName("");
-    setNewEmail("");
+    setNewContacts({ newName: "", newEmail: "" });
     navigate("/");
   };
 
@@ -40,9 +43,7 @@ const EditContact = () => {
       <h2>
         Edit Contact
         <Link to="/">
-          <button className="ui button orange right floated">
-            All Contact List
-          </button>
+          <button className="ui button orange right floated">All Contact List</button>
         </Link>
       </h2>
       <form className="ui form" onSubmit={update}>
@@ -53,7 +54,12 @@ const EditContact = () => {
             name="name"
             placeholder="Name"
             value={newName}
-            onChange={(e) => setNewName(e.target.value)}
+            onChange={(e) =>
+              setNewContacts((contact) => ({
+                ...contact,
+                newName: e.target.value,
+              }))
+            }
           />
         </div>
         <div className="field">
@@ -63,7 +69,12 @@ const EditContact = () => {
             name="email"
             placeholder="Email"
             value={newEmail}
-            onChange={(e) => setNewEmail(e.target.value)}
+            onChange={(e) =>
+              setNewContacts((contact) => ({
+                ...contact,
+                newEmail: e.target.value,
+              }))
+            }
           />
         </div>
         <button className="ui button teal">UPDATE</button>
