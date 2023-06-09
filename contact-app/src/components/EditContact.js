@@ -6,10 +6,10 @@ const EditContact = () => {
   const { updateContactHandler } = useContactsCrud();
   const location = useLocation();
   const navigate = useNavigate();
-  const { id, name, email } = location.state.contact;
+  const { c_uuid, c_name, c_email } = location.state.contact;
   const [newContacts, setNewContacts] = useState({
-    newName: name,
-    newEmail: email,
+    newName: c_name,
+    newEmail: c_email,
   });
 
   const { newName, newEmail } = newContacts;
@@ -33,7 +33,7 @@ const EditContact = () => {
       return;
     }
 
-    updateContactHandler({ id, name: newName, email: newEmail });
+    updateContactHandler({ c_uuid, c_name: newName, c_email: newEmail });
     setNewContacts({ newName: "", newEmail: "" });
     navigate("/");
   };

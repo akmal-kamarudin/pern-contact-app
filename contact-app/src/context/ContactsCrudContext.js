@@ -10,36 +10,62 @@ export function ContacstCrudContextProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const retrieveContacts = async () => {
-    const response = await api.get("/contacts");
-    if (response.data) setContacts(response.data);
+    try {
+      const response = await api.get("/contacts");
+      const jsonData = await response.data;
+      if (jsonData) setContacts(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const addContactHandler = async (contact) => {
-    const request = {
-      id: uuid(),
-      ...contact,
-    };
-
-    const response = await api.post("/contacts", request);
-    setContacts([...contacts, response.data]);
+    try {
+      const request = { id: uuid(), ...contact };
+      const response = await api.post("/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        data: request,
+      });
+      const jsonData = await response.data.rows[0];
+      console.log(jsonData);
+      setContacts([...contacts, jsonData]);
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const updateContactHandler = async (contact) => {
-    const response = await api.put(`/contacts/${contact.id}`, contact);
-    const { id } = response.data;
-    setContacts(
-      contacts.map((contact) => {
-        return contact.id === id ? { ...response.data } : contact;
-      })
-    );
+    try {
+      const { c_uuid, ...body } = contact;
+      const response = await api.put(`/contacts/${c_uuid}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        data: body,
+      });
+
+      const jsonData = await response.data.rows[0];
+      console.log(jsonData);
+      setContacts(
+        contacts.map((contact) => {
+          return contact.c_uuid === c_uuid ? { ...jsonData } : contact;
+        })
+      );
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const removeContactHandler = async (id) => {
-    await api.delete(`/contacts/${id}`);
-    const newContactList = contacts.filter((contact) => {
-      return contact.id !== id;
-    });
+    try {
+      await api.delete(`/contacts/${id}`);
+    } catch (err) {
+      console.error(err.message);
+    }
 
+    const newContactList = contacts.filter((contact) => {
+      return contact.c_uuid !== id;
+    });
     setContacts(newContactList);
   };
 

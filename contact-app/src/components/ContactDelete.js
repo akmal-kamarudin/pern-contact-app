@@ -6,7 +6,7 @@ import { useContactsCrud } from "../context/ContactsCrudContext";
 const ContactDelete = () => {
   const { removeContactHandler } = useContactsCrud();
   const location = useLocation();
-  const { id } = location.state.contact;
+  const { c_uuid } = location.state.contact;
 
   const deleteContactHandler = (id) => {
     removeContactHandler(id);
@@ -21,7 +21,7 @@ const ContactDelete = () => {
             <Link to="/">
               <button
                 className="ui button red"
-                onClick={() => deleteContactHandler(id)}
+                onClick={() => deleteContactHandler(c_uuid)}
               >
                 DELETE
               </button>
