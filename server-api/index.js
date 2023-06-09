@@ -42,11 +42,10 @@ app.get("/contacts", async (req, res) => {
 // get a contact
 app.get("/contacts/:id", async (req, res) => {
   try {
-    console.log(req.params);
+    // console.log(req.params);
     const { id } = req.params;
     const contact = await pool.query("SELECT * FROM contacts WHERE c_uuid = $1", [id]);
     res.json(contact.rows);
-    console.log(`Grab the`, id, `nice`);
   } catch (error) {
     console.error(err.message);
   }
@@ -55,8 +54,8 @@ app.get("/contacts/:id", async (req, res) => {
 // update a contact
 app.put("/contacts/:id", async (req, res) => {
   try {
-    console.log(req.params);
-    console.log(req.body.data);
+    // console.log(req.params);
+    // console.log(req.body.data);
     const { id } = req.params;
     const { c_name, c_email } = req.body.data;
     const updateContact = await pool.query(
@@ -65,7 +64,6 @@ app.put("/contacts/:id", async (req, res) => {
     );
 
     res.json(updateContact);
-    // res.json("Contact has been updated");
   } catch (error) {
     console.error(err.message);
   }
@@ -74,11 +72,12 @@ app.put("/contacts/:id", async (req, res) => {
 // delete a contact
 app.delete("/contacts/:id", async (req, res) => {
   try {
+    console.log(req.params);
+
     const { id } = req.params;
     const deleteContact = await pool.query("DELETE FROM contacts WHERE c_uuid = $1", [
       id,
     ]);
-    // res.json(deleteContact);
     res.json("Contact has been deleted");
   } catch (error) {
     console.error(err.message);

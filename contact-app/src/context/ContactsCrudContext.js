@@ -13,6 +13,7 @@ export function ContacstCrudContextProvider({ children }) {
     try {
       const response = await api.get("/contacts");
       const jsonData = await response.data;
+      console.log(jsonData);
       if (jsonData) setContacts(jsonData);
     } catch (err) {
       console.error(err.message);
