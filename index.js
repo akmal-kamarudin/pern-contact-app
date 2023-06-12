@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json()); //req.body
 
+app.use("/", express.static("./contact-app/build"));
+
 if (process.env.NODE_ENV === "production") {
   // server static content
   // npm run build
@@ -93,6 +95,11 @@ app.delete("/contacts/:id", async (req, res) => {
   } catch (error) {
     console.error(err.message);
   }
+});
+
+// catch all routes, back to homepage
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "contact-app/build/index.html"));
 });
 
 app.listen(PORT, () => {
