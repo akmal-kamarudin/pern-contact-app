@@ -2,11 +2,25 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
-const port = 5000;
+const path = require("path");
+const PORT = process.env.PORT || 5000;
+
+//process.env.PORT
+//process.env.NODE_ENV => production or undefined
 
 // middleware
 app.use(cors());
 app.use(express.json()); //req.body
+
+app.use(express.static(path.join(__dirname, "contact-app/build")));
+
+if (process.env.NODE_ENV === "production") {
+  //server static content
+  //npm run build
+  app.use(express.static(path.join(__dirname, "contact-app/build")));
+}
+
+console.log(path.join(__dirname, "contact-app/build"));
 
 app.get("/", (_, res) => {
   res.send("Contact Manager");
@@ -84,6 +98,6 @@ app.delete("/contacts/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on PORT ${PORT}`);
 });
