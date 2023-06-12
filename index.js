@@ -12,15 +12,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json()); //req.body
 
-app.use(express.static(path.join(__dirname, "contact-app/build")));
-
 if (process.env.NODE_ENV === "production") {
-  //server static content
-  //npm run build
+  // server static content
+  // npm run build
   app.use(express.static(path.join(__dirname, "contact-app/build")));
+  // app.use("/", express.static("./contact-app/build"));
 }
-
-console.log(path.join(__dirname, "contact-app/build"));
 
 app.get("/", (_, res) => {
   res.send("Contact Manager");
