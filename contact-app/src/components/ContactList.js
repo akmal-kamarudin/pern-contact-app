@@ -15,7 +15,7 @@ const ContactList = () => {
 
   useEffect(() => {
     retrieveContacts();
-  }, []);
+  }, [retrieveContacts]);
 
   const renderContactList = (
     searchTerm.length < 1 ? contacts : searchResults
