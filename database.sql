@@ -23,3 +23,11 @@ VALUES
         'Amirah',
         'mira.smith@gmail.com'
     );
+
+-- .env config
+
+-- PG_USER = postgres
+-- PG_PASSWORD = password
+-- PG_HOST = localhost
+-- PG_PORT = 5432
+-- PG_DATABASE = pern_contact
