@@ -5,23 +5,18 @@ import ContactCard from "./ContactCard";
 import { useContactsCrud } from "../context/ContactsCrudContext";
 
 const ContactList = () => {
-  const {
-    contacts,
-    retrieveContacts,
-    searchTerm,
-    searchResults,
-    searchHandler,
-  } = useContactsCrud();
+  const { contacts, retrieveContacts, searchTerm, searchResults, searchHandler } =
+    useContactsCrud();
 
   useEffect(() => {
     retrieveContacts();
   }, [retrieveContacts]);
 
-  const renderContactList = (
-    searchTerm.length < 1 ? contacts : searchResults
-  ).map((contact) => {
-    return <ContactCard contact={contact} key={contact.id}></ContactCard>;
-  });
+  const renderContactList = (searchTerm.length < 1 ? contacts : searchResults).map(
+    (contact) => {
+      return <ContactCard contact={contact} key={contact.id}></ContactCard>;
+    }
+  );
 
   const getSearchTerm = (e) => {
     searchHandler(e.target.value);
@@ -29,7 +24,7 @@ const ContactList = () => {
 
   return (
     <div className="main">
-      <h2>
+      <h2 id="title-container">
         Contact List
         <Link to="/add">
           <button className="ui button blue right floated">Add Contact</button>
@@ -49,9 +44,7 @@ const ContactList = () => {
         </div>
       </div>
       <div className="ui celled list">
-        {renderContactList.length > 0
-          ? renderContactList
-          : "No contacts are available"}
+        {renderContactList.length > 0 ? renderContactList : "No contacts are available"}
       </div>
     </div>
   );
