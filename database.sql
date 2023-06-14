@@ -24,10 +24,10 @@ VALUES
         'mira.smith@gmail.com'
     );
 
--- .env config
-
--- PG_USER = postgres
--- PG_PASSWORD = password
--- PG_HOST = localhost
--- PG_PORT = 5432
--- PG_DATABASE = pern_contact
+-- .env Variables in Railway
+-- PGHOST = containers-us-west-47.railway.app
+-- PGPORT = 6021
+-- PGUSER = postgres
+-- PGPASSWORD = 5gtG4OWzeL4qWD67o2ff
+-- PGDATABASE = railway
+-- DATABASE_URL = postgresql://postgres:5gtG4OWzeL4qWD67o2ff@containers-us-west-47.railway.app:6021/railway
